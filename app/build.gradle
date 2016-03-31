@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        project.archivesBaseName = "AnterosSocialAndroid"
+        project.version = android.defaultConfig.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    libraryVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.aar')) {
+                def fileName = "${archivesBaseName}-${version}.aar"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile('com.facebook.android:facebook-android-sdk:4.0.0@aar'){
+        transitive = true;
+    }
+    compile('com.google.android.gms:play-services-plus:8.4.0@aar'){
+        transitive = true;
+    }
+    compile('com.google.android.gms:play-services-auth:8.4.0@aar'){
+        transitive = true;
+    }
+    compile'com.google.code.gson:gson:2.2.4'
+
+    compile('com.twitter.sdk.android:twitter:1.3.2@aar') {
+        transitive = true;
+    }
+}
