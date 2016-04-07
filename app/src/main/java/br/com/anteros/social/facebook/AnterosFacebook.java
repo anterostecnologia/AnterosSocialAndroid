@@ -15,6 +15,8 @@ import br.com.anteros.social.facebook.listeners.OnLoginFacebookListener;
 import br.com.anteros.social.facebook.listeners.OnLogoutFacebookListener;
 import br.com.anteros.social.facebook.listeners.OnNewFacebookPermissionsListener;
 import br.com.anteros.social.facebook.listeners.OnProfileFacebookListener;
+import br.com.anteros.social.facebook.utils.Attributes;
+import br.com.anteros.social.facebook.utils.PictureAttributes;
 
 /**
  * Created by edson on 23/03/16.
@@ -40,12 +42,7 @@ public class AnterosFacebook {
      *            Activity
      */
     public static void initialize(Activity activity) {
-        if (instance == null) {
-            FacebookSdk.sdkInitialize(activity.getApplicationContext());
-            instance = new AnterosFacebook();
-            sessionManager = new AnterosFacebookSessionManager(configuration);
-        }
-        sessionManager.setActivity(activity);
+        FacebookSdk.sdkInitialize(activity.getApplicationContext());
     }
 
     /**
@@ -251,7 +248,22 @@ public class AnterosFacebook {
      *            The callback listener.
      */
     public void getProfile(OnProfileFacebookListener onProfileFacebookListener) {
-        getProfile(null, null, onProfileFacebookListener);
+        PictureAttributes pictureAttributes = Attributes.createPictureAttributes();
+        pictureAttributes.setHeight(100);
+        pictureAttributes.setWidth(100);
+        pictureAttributes.setType(PictureAttributes.PictureType.SQUARE);
+        FacebookProfile.Properties properties = new FacebookProfile.Properties.Builder()
+                .add(FacebookProfile.Properties.PICTURE, pictureAttributes)
+                .add(FacebookProfile.Properties.FIRST_NAME)
+                .add(FacebookProfile.Properties.LAST_NAME)
+                .add(FacebookProfile.Properties.AGE_RANGE)
+                .add(FacebookProfile.Properties.BIRTHDAY)
+                .add(FacebookProfile.Properties.EMAIL)
+                .add(FacebookProfile.Properties.GENDER)
+                .add(FacebookProfile.Properties.LINK)
+                .add(FacebookProfile.Properties.MIDDLE_NAME)
+                .build();
+        getProfile(null, properties, onProfileFacebookListener);
     }
 
     /**
@@ -265,7 +277,22 @@ public class AnterosFacebook {
      *            The callback listener.
      */
     public void getProfile(String profileId, OnProfileFacebookListener onProfileFacebookListener) {
-        getProfile(profileId, null, onProfileFacebookListener);
+        PictureAttributes pictureAttributes = Attributes.createPictureAttributes();
+        pictureAttributes.setHeight(100);
+        pictureAttributes.setWidth(100);
+        pictureAttributes.setType(PictureAttributes.PictureType.SQUARE);
+        FacebookProfile.Properties properties = new FacebookProfile.Properties.Builder()
+                .add(FacebookProfile.Properties.PICTURE, pictureAttributes)
+                .add(FacebookProfile.Properties.FIRST_NAME)
+                .add(FacebookProfile.Properties.LAST_NAME)
+                .add(FacebookProfile.Properties.AGE_RANGE)
+                .add(FacebookProfile.Properties.BIRTHDAY)
+                .add(FacebookProfile.Properties.EMAIL)
+                .add(FacebookProfile.Properties.GENDER)
+                .add(FacebookProfile.Properties.LINK)
+                .add(FacebookProfile.Properties.MIDDLE_NAME)
+                .build();
+        getProfile(profileId, properties, onProfileFacebookListener);
     }
 
     /**

@@ -130,7 +130,10 @@ public class AnterosFacebookSessionManager {
         if (isLogged()) {
             Log.i(TAG, "You were already logged in before calling 'login()' method.");
             LoginResult loginResult = createLastLoginResult();
-            onLoginFacebookListener.onLogin(loginResult.getAccessToken().getToken(), Permission.convert(getAcceptedPermissions()), null);
+            String token = loginResult.getAccessToken().getToken();
+            List<Permission> acceptedPermissions = Permission.convert(getAcceptedPermissions());
+            List<Permission> declinedPermissions = new ArrayList<>();
+            onLoginFacebookListener.onLogin(token, acceptedPermissions,declinedPermissions);
             return;
         }
 

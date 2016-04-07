@@ -114,7 +114,7 @@ public class AnterosGoogle {
 
     private void checkListeners() {
         if (onLoginGoogleListener==null) {
-            throw new AnterosGoogleException("Listener OnLoginGoogleListener não foi definido.");
+            throw new AnterosGoogleException("Listener OnLoginInstagramListener não foi definido.");
         }
         if (onLogoutGoogleListener==null) {
             throw new AnterosGoogleException("Listener OnLogoutGoogleListener não foi definido.");

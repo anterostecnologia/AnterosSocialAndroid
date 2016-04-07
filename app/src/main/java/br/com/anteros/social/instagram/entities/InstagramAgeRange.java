@@ -1,19 +1,22 @@
-package br.com.anteros.social.facebook.entities;
-
-import com.google.gson.annotations.SerializedName;
+package br.com.anteros.social.instagram.entities;
 
 import br.com.anteros.social.AgeRange;
 
 /**
- * Created by edson on 24/03/16.
+ * Created by edson on 25/03/16.
  */
-public class FacebookAgeRange implements AgeRange {
+public class InstagramAgeRange implements AgeRange{
 
-    @SerializedName("min")
+
     private String min;
 
-    @SerializedName("max")
     private String max;
+
+    public InstagramAgeRange(String min, String max) {
+        this.min = min;
+        this.max = max;
+    }
+
 
     public String getMin() {
         return min;
@@ -28,3 +31,4 @@ public class FacebookAgeRange implements AgeRange {
         return min+" to "+max;
     }
 }
+

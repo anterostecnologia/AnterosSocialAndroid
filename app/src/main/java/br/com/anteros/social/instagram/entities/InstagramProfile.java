@@ -1,6 +1,8 @@
-package br.com.anteros.social.google.entities;
+package br.com.anteros.social.instagram.entities;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import br.com.anteros.social.AgeRange;
 import br.com.anteros.social.SocialProfile;
@@ -9,36 +11,64 @@ import br.com.anteros.social.facebook.SocialProfileType;
 /**
  * Created by edson on 25/03/16.
  */
-public class GoogleProfile implements SocialProfile{
+public class InstagramProfile implements SocialProfile, Parcelable{
 
-
-    private String firstName;
-
-    private String middleName;
-
-    private String lastName;
-
-    private String gender;
-
-    private String birthday;
-
-    private String email;
-
-    private String image;
-
-    private String link;
-
-    private Bitmap imageBitmap;
+    private String id="";
 
     private String userName="";
 
-    private String id="";
+    private String firstName="";
+
+    private String middleName="";
+
+    private String lastName="";
+
+    private String gender="";
+
+    private String birthday="";
+
+    private String email="";
+
+    private String image="";
+
+    private String link="";
+
+    private Bitmap imageBitmap;
+
+    protected InstagramProfile(Parcel in) {
+        id = in.readString();
+        userName = in.readString();
+        firstName = in.readString();
+        middleName = in.readString();
+        lastName = in.readString();
+        gender = in.readString();
+        birthday = in.readString();
+        email = in.readString();
+        image = in.readString();
+        link = in.readString();
+    }
+
+    public static final Creator<InstagramProfile> CREATOR = new Creator<InstagramProfile>() {
+        @Override
+        public InstagramProfile createFromParcel(Parcel in) {
+            return new InstagramProfile(in);
+        }
+
+        @Override
+        public InstagramProfile[] newArray(int size) {
+            return new InstagramProfile[size];
+        }
+    };
 
     public String getLink() {
         return link;
     }
 
-    public GoogleProfile(String firstName, String middleName, String lastName, String gender, String birthday, String email, String image, String link, GoogleAgeRange ageRange) {
+    public InstagramProfile(){
+
+    }
+
+    public InstagramProfile(String firstName, String middleName, String lastName, String gender, String birthday, String email, String image, String link, InstagramAgeRange ageRange) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -58,11 +88,11 @@ public class GoogleProfile implements SocialProfile{
         return ageRange;
     }
 
-    public void setAgeRange(GoogleAgeRange ageRange) {
+    public void setAgeRange(InstagramAgeRange ageRange) {
         this.ageRange = ageRange;
     }
 
-    private GoogleAgeRange ageRange;
+    private InstagramAgeRange ageRange;
 
     @Override
     public String getId() {
@@ -72,6 +102,14 @@ public class GoogleProfile implements SocialProfile{
     @Override
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -150,7 +188,7 @@ public class GoogleProfile implements SocialProfile{
 
     @Override
     public String toString() {
-        return "GoogleProfile{" +
+        return "InstagramProfile{" +
                 "firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -169,15 +207,34 @@ public class GoogleProfile implements SocialProfile{
 
     @Override
     public SocialProfileType getProfileType() {
-        return SocialProfileType.GOOGLE;
+        return SocialProfileType.INSTAGRAM;
     }
 
     @Override
     public String getProfileName() {
-        return "Google";
+        return "Instagram";
     }
 
     public void setImageBitmap(Bitmap bitmap) {
         this.imageBitmap = bitmap;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(userName);
+        dest.writeString(firstName);
+        dest.writeString(middleName);
+        dest.writeString(lastName);
+        dest.writeString(gender);
+        dest.writeString(birthday);
+        dest.writeString(email);
+        dest.writeString(image);
+        dest.writeString(link);
     }
 }

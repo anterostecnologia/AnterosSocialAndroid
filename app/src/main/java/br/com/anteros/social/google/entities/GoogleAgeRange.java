@@ -1,9 +1,11 @@
 package br.com.anteros.social.google.entities;
 
+import br.com.anteros.social.AgeRange;
+
 /**
  * Created by edson on 25/03/16.
  */
-public class GoogleAgeRange {
+public class GoogleAgeRange implements AgeRange{
 
 
     private String min;

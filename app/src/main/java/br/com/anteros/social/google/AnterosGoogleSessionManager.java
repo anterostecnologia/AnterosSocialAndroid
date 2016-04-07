@@ -76,19 +76,25 @@ public class AnterosGoogleSessionManager implements GoogleApiClient.OnConnection
     }
 
     private void signIn() {
+        clientGoogle.connect();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(clientGoogle);
         activity.get().startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void signOut() {
-        Auth.GoogleSignInApi.signOut(clientGoogle).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        account = null;
-                        onLogoutListener.onLogout();
-                    }
-                });
+        if (clientGoogle.isConnected()) {
+            Auth.GoogleSignInApi.signOut(clientGoogle).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            account = null;
+                            onLogoutListener.onLogout();
+                        }
+                    });
+        } else {
+            account = null;
+            onLogoutListener.onLogout();
+        }
     }
 
     private void revokeAccess() {
@@ -130,17 +136,18 @@ public class AnterosGoogleSessionManager implements GoogleApiClient.OnConnection
 
     void setActivity(FragmentActivity activity) {
         this.activity = new WeakReference<FragmentActivity>(activity);
+        if (clientGoogle==null) {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .requestScopes(new Scope(Scopes.PLUS_LOGIN))
+                    .build();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestScopes(new Scope(Scopes.PLUS_LOGIN))
-                .build();
-
-        clientGoogle = new GoogleApiClient.Builder(this.activity.get())
-                .enableAutoManage(this.activity.get() /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Plus.API)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+            clientGoogle = new GoogleApiClient.Builder(this.activity.get())
+                    .enableAutoManage(this.activity.get() /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Plus.API)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        }
     }
 
     public void silentLogin() {

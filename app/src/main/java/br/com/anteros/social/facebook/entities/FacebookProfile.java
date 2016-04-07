@@ -11,13 +11,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import br.com.anteros.social.AgeRange;
+import br.com.anteros.social.SocialProfile;
+import br.com.anteros.social.facebook.SocialProfileType;
 import br.com.anteros.social.facebook.utils.Attributes;
 import br.com.anteros.social.facebook.utils.FacebookUtils;
 
 /**
  * Created by edson on 23/03/16.
  */
-public class FacebookProfile extends FacebookUser {
+public class FacebookProfile extends FacebookUser implements SocialProfile {
 
     @SerializedName(Properties.FIRST_NAME)
     private String firstName;
@@ -46,6 +49,8 @@ public class FacebookProfile extends FacebookUser {
     @SerializedName(Properties.PICTURE)
     private FacebookUtils.SingleDataResult<FacebookImage> image;
 
+    private String userName = "";
+
     private Bitmap imageBitmap;
 
     /**
@@ -58,6 +63,11 @@ public class FacebookProfile extends FacebookUser {
      */
     public String getId() {
         return super.getId();
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
     }
 
     /**
@@ -108,6 +118,19 @@ public class FacebookProfile extends FacebookUser {
         return lastName;
     }
 
+    @Override
+    public String getFullName() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(getFirstName());
+        if (getMiddleName()!=null){
+            sb.append(" ");
+            sb.append(getMiddleName());
+        }
+        sb.append(" ");
+        sb.append(getLastName());
+        return sb.toString();
+    }
+
     /**
      * Returns the gender of the user. <br>
      * <br>
@@ -140,7 +163,7 @@ public class FacebookProfile extends FacebookUser {
      *
      * @return the user's age range
      */
-    public FacebookAgeRange getAgeRange() {
+    public AgeRange getAgeRange() {
         return ageRange;
     }
 
@@ -170,6 +193,11 @@ public class FacebookProfile extends FacebookUser {
      */
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String getImageUrl() {
+        return getImage();
     }
 
     /**
@@ -378,6 +406,16 @@ public class FacebookProfile extends FacebookUser {
 
     public Bitmap getImageBitmap(){
         return this.imageBitmap;
+    }
+
+    @Override
+    public SocialProfileType getProfileType() {
+        return SocialProfileType.FACEBOOK;
+    }
+
+    @Override
+    public String getProfileName() {
+        return "Facebook";
     }
 
     public void setImageBitmap(Bitmap bitmap) {
