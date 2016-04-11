@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'anteros-social-android-google'
+
+    publishedGroupId = 'br.com.anteros.social'
+    libraryName = 'anteros-social-android-google'
+    artifact = 'anteros-social-android-google'
+
+    libraryDescription = 'Anteros Social Android Google - Framework para login no Google.'
+
+    siteUrl = 'http://www.anteros.com.br'
+    gitUrl = 'https://github.com/anterostecnologia/anterossocialandroid.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'edson'
+    developerName = 'Edson Martins'
+    developerEmail = 'edsonmartins2005@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile('com.google.android.gms:play-services-plus:8.4.0@aar') {
+        transitive = true;
+    }
+    compile('com.google.android.gms:play-services-auth:8.4.0@aar') {
+        transitive = true;
+    }
+    provided 'com.google.code.gson:gson:2.2.4'
+    compile 'com.google.android.gms:play-services-auth:8.4.0'
+    compile project(':anteros-social-android-core')
+}
+
+
+apply from : '../install.gradle'
+//apply from : '../bintray.gradle'

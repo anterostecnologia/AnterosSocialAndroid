@@ -1,2 +1,1 @@
-include ':anteros-social-android'
-include ':linkedin-sdk'
+include ':anteros-social-android-core', ':anteros-social-android-facebook', ':anteros-social-android-google', ':anteros-social-android-instagram', ':anteros-social-android-linkedin', ':anteros-social-android-twitter'

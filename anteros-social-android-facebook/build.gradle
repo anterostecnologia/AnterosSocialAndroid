@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'anteros-social-android-facebook'
+
+    publishedGroupId = 'br.com.anteros.social'
+    libraryName = 'anteros-social-android-facebook'
+    artifact = 'anteros-social-android-facebook'
+
+    libraryDescription = 'Anteros Social Android Facebook - Framework para login no Facebook.'
+
+    siteUrl = 'http://www.anteros.com.br'
+    gitUrl = 'https://github.com/anterostecnologia/anterossocialandroid.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'edson'
+    developerName = 'Edson Martins'
+    developerEmail = 'edsonmartins2005@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile project(':anteros-social-android-core')
+    provided('com.facebook.android:facebook-android-sdk:4.0.0@aar') {
+        transitive = true;
+    }
+    provided 'com.google.code.gson:gson:2.2.4'
+}
+
+apply from : '../install.gradle'
+//apply from : '../bintray.gradle'
