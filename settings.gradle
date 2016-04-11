@@ -1,1 +1,2 @@
-include ':app'
+include ':anteros-social-android'
+include ':linkedin-sdk'
