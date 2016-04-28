@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AnterosSocialButton">
+        <attr name="asb_type" format="enum">
+            <enum name="facebook" value="0" />
+            <enum name="google" value="1" />
+            <enum name="instagram" value="2" />
+            <enum name="linkedin" value="3" />
+            <enum name="twitter" value="4" />
+            <enum name="youtube" value="5" />
+            <enum name="snapchat" value="6" />
+        </attr>
+        <attr name="asb_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="light" value="1" />
+        </attr>
+        <attr name="asb_showText" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="AnterosSocialFloatingActionButton">
+        <attr name="asfab_size" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+        </attr>
+        <attr name="asfab_type" format="enum">
+            <enum name="facebook" value="0" />
+            <enum name="google" value="1" />
+            <enum name="instagram" value="2" />
+            <enum name="linkedin" value="3" />
+            <enum name="twitter" value="4" />
+            <enum name="youtube" value="5" />
+            <enum name="snapchat" value="6" />
+        </attr>
+        <attr name="asfab_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="light" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
