@@ -13,7 +13,7 @@ ext {
     siteUrl = 'http://www.anteros.com.br'
     gitUrl = 'https://github.com/anterostecnologia/anterossocialandroid.git'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
 
     developerId = 'edson'
     developerName = 'Edson Martins'
@@ -32,8 +32,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
     }
     buildTypes {
         release {
@@ -69,4 +69,4 @@ apply from : '../install.gradle'
  *  *****************************************************************************
  */
 
-//apply from : '../bintray.gradle'
+apply from : '../bintray.gradle'
